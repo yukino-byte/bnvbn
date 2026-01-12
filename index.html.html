@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Analytical Exposition Text</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;font-family:Arial,sans-serif}
+.slide{
+  width:100%;
+  height:100vh;
+  padding:50px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  transition:background .8s ease
+}
+h1{font-size:42px;margin-bottom:20px;animation:zoomIn .8s ease}
+#text{font-size:24px;max-width:900px;line-height:1.6}
+.controls{position:absolute;bottom:40px}
+button{
+  padding:10px 22px;
+  margin:0 8px;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  cursor:pointer
+}
+button:hover{opacity:.8}
+.slide-in{animation:slideIn .7s ease forwards}
+.slide-out{animation:slideOut .6s ease forwards}
+@keyframes slideIn{
+  from{opacity:0;transform:translateX(60px);filter:blur(4px)}
+  to{opacity:1;transform:translateX(0);filter:blur(0)}
+}
+@keyframes slideOut{
+  from{opacity:1;transform:translateX(0);filter:blur(0)}
+  to{opacity:0;transform:translateX(-60px);filter:blur(4px)}
+}
+@keyframes zoomIn{
+  from{opacity:0;transform:scale(.85)}
+  to{opacity:1;transform:scale(1)}
+}
+</style>
+</head>
+<body>
+
+<div id="slide" class="slide">
+  <h1 id="title"></h1>
+  <p id="text"></p>
+  <div class="controls">
+    <button onclick="goFullscreen()">Fullscreen</button>
+    <button onclick="nextWord()">Next</button>
+  </div>
+</div>
+
+<script>
+const slides=[
+{title:"Analytical Exposition Text",text:"Unit 4 English Advanced Grade 11",bg:"linear-gradient(120deg,#0f2027,#203a43,#2c5364)"},
+{title:"Definition",text:"Analytical Exposition Text is a text that explains the writer’s opinion about an issue. The purpose is to persuade the reader that the opinion is correct.",bg:"linear-gradient(120deg,#1d2671,#c33764)"},
+{title:"Social Function",text:"To express opinion. To persuade the reader. To analyze an issue logically.",bg:"linear-gradient(120deg,#134e5e,#71b280)"},
+{title:"Generic Structure",text:"Thesis introduction of the topic and writer’s opinion. Arguments reasons and facts to support the opinion. Reiteration restatement of the opinion.",bg:"linear-gradient(120deg,#42275a,#734b6d)"},
+{title:"Language Features",text:"Simple Present Tense. Mental verbs think believe feel. Logical connectors because therefore however. Evaluative words important harmful useful.",bg:"linear-gradient(120deg,#000428,#004e92)"},
+{title:"Example Topic",text:"Social Media is Beneficial for Students. Social media is beneficial for students because it helps learning and communication.",bg:"linear-gradient(120deg,#373b44,#4286f4)"},
+{title:"Example Argument",text:"Students can access learning materials easily. Social media helps students communicate with teachers and friends. It improves digital skills.",bg:"linear-gradient(120deg,#232526,#414345)"},
+{title:"Reiteration",text:"In conclusion social media gives many benefits for students if it is used wisely.",bg:"linear-gradient(120deg,#1f4037,#99f2c8)"},
+{title:"Conclusion",text:"Analytical Exposition text helps us express opinions think critically and persuade others with logical reasons.",bg:"linear-gradient(120deg,#2b5876,#4e4376)"},
+{title:"Thank You",text:"Thank you for your attention",bg:"linear-gradient(120deg,#141e30,#243b55)"}
+];
+
+let slideIndex=0,wordIndex=0,words=[];
+const slide=document.getElementById("slide");
+const title=document.getElementById("title");
+const textEl=document.getElementById("text");
+
+function nextWord(){
+  if(wordIndex===0){
+    slide.className="slide slide-in";
+    title.innerText=slides[slideIndex].title;
+    textEl.innerHTML="";
+    words=slides[slideIndex].text.split(" ");
+    slide.style.background=slides[slideIndex].bg;
+  }
+  if(wordIndex<words.length){
+    textEl.innerHTML+=words[wordIndex]+" ";
+    wordIndex++;
+  }else{
+    slide.classList.remove("slide-in");
+    slide.classList.add("slide-out");
+    setTimeout(()=>{
+      wordIndex=0;
+      slideIndex++;
+      if(slideIndex>=slides.length)slideIndex=0;
+    },600);
+  }
+}
+function goFullscreen(){
+  document.documentElement.requestFullscreen();
+}
+</script>
+
+</body>
+</html>
